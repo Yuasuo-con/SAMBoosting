@@ -22,9 +22,9 @@ def remove_all_small_regions(
     num_classes = pred_mask.max() + 1
     cleaned_pred = pred_mask.copy()
 
-    for cls in range(1, num_classes):  # 每类处理
-        cleaned_pred[(pred_mask == cls)] = 0  # 清空该类
-        cleaned_cls = remove_small_components(pred_mask == cls, min_size=min_size)  # 移除小块
+    for cls in range(1, num_classes): 
+        cleaned_pred[(pred_mask == cls)] = 0  
+        cleaned_cls = remove_small_components(pred_mask == cls, min_size=min_size)
         cleaned_pred[cleaned_cls == 1] = cls
     return cleaned_pred
 
@@ -56,24 +56,22 @@ def compute_dice_scores(mask_pred, mask_gt):
 
 def get_surface_voxels(mask):
     # mask: binary 3D array
-    # 表面 = mask - 腐蚀(mask)
     eroded = binary_erosion(mask)
     surface = mask ^ eroded
-    return np.stack(np.nonzero(surface), axis=-1)  # 返回 (N, 3)
+    return np.stack(np.nonzero(surface), axis=-1) 
 
 def compute_asd_for_class(pred, gt, spacing=(1.0, 1.0, 1.0)):
-    # 获取表面点坐标
+
     pred_surface = get_surface_voxels(pred)
     gt_surface = get_surface_voxels(gt)
     
     if len(pred_surface) == 0 or len(gt_surface) == 0:
-        return np.nan  # 某一方为空，无法计算 ASD
+        return np.nan 
 
-    # 应用 spacing 变换为物理坐标
     pred_surface = pred_surface * spacing
     gt_surface = gt_surface * spacing
 
-    # 构建 KD 树并计算最近距离
+
     tree_pred = cKDTree(pred_surface)
     tree_gt = cKDTree(gt_surface)
 
@@ -85,7 +83,7 @@ def compute_asd_for_class(pred, gt, spacing=(1.0, 1.0, 1.0)):
 
 def compute_asd_all_classes(pred_mask, gt_mask, spacing=(1.0, 1.0, 1.0), num_classes=4):
     results = []
-    for c in range(1, num_classes):  # 忽略背景类 0
+    for c in range(1, num_classes):  
         pred_c = (pred_mask == c)
         gt_c = (gt_mask == c)
         asd = compute_asd_for_class(pred_c, gt_c, spacing)
@@ -119,7 +117,7 @@ def compute_hd95(pred_mask, gt_mask, spacing=(1.0, 1.0, 1.0)):
 def compute_hd95_all_classes(pred_mask, gt_mask, spacing=(1.0, 1.0, 1.0), num_classes=4):
     results = []
 
-    for c in range(1, num_classes):  # 跳过背景类
+    for c in range(1, num_classes):
         pred_c = (pred_mask == c)
         gt_c = (gt_mask == c)
         hd95 = compute_hd95(pred_c, gt_c, spacing)

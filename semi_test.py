@@ -145,7 +145,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-data_root",
         type=str,
-        default="data/npz_test/MR_Abd",
+        default="data/npz/test",
         help="path to the data root",
     )
     parser.add_argument(

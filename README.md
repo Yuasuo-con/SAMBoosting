@@ -77,20 +77,6 @@ python pre_CT_MR.py \
     --save_nii
 ```
 
-**Parameters:**
-
-- `-modality`: CT or MR
-- `-anatomy`: Anatomy + dataset name (e.g., Spine for Qilu-Spine)
-- `-img_name_prefix`: Prefix of image files
-- `-gt_name_prefix`: Prefix of ground truth files
-- `-img_path`: Path to nii images
-- `-gt_path`: Path to ground truth labels
-- `-output_path`: Output path for preprocessed npz files
-- `-num_workers`: Number of workers for preprocessing
-- `-window_level`: CT window level (default: 40)
-- `-window_width`: CT window width (default: 400)
-- `--save_nii`: Save as nii files for sanity check (optional)
-
 3. **Step 2: Convert npz files to npy format for training**:
 
 For 3D datasets, you need to convert the preprocessed npz files to npy format by extracting slices:
@@ -214,26 +200,6 @@ python -m torch.distributed.launch \
     --bbox_shift 5 \
     --labeled_data 200 \
     --dataset "spine"
-```
-
-**Notes:**
-
-- The fine-tuning process uses distributed training with multiple GPUs
-- Only the image encoder and mask decoder parameters are trainable (prompt encoder is frozen)
-- Uses Dice + Cross Entropy loss for optimization
-- Training progress and loss curves are saved in the work directory
-- Best model (based on validation loss) is saved as `medsam_model_best.pth`
-
-### Preparing Validation Data
-
-For validation, you should split a small portion of your data:
-
-```bash
-# Example: Create validation set from training data
-mkdir -p data/npy/QiluSpine_val/imgs
-mkdir -p data/npy/QiluSpine_val/gts
-cp data/npy/QiluSpine_train/imgs/*.npy data/npy/QiluSpine_val/imgs/ | head -20
-cp data/npy/QiluSpine_train/gts/*.npy data/npy/QiluSpine_val/gts/ | head -20
 ```
 
 ### Using Fine-Tuned Model in Semi-Supervised Training

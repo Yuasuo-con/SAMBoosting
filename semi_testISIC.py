@@ -73,7 +73,7 @@ for i, (_, img, gt, _, _) in tqdm(enumerate(dataloader)):
             ground_truth = gt[j] * 255
             ground_truth = ground_truth.astype(np.uint8)
 
-            pred_mask = Image.fromarray(pred, mode='L')  # 'L' 表示灰度图
+            pred_mask = Image.fromarray(pred, mode='L')
             gt_mask = Image.fromarray(ground_truth, mode='L')
 
             pred_mask.save(os.path.join(save_dir, 'pred', f'{count}.png'))
@@ -90,7 +90,6 @@ for i, (_, img, gt, _, _) in tqdm(enumerate(dataloader)):
             # alpha = 0.4
             # overlay = cv2.addWeighted(img256, 1-alpha, mask_rgb, alpha, 0)
 
-            # # overlay 就是叠加后的图，直接保存或 imshow
             # cv2.imwrite('overlay.png', overlay)
 #             iou_scores.append(compute_iou_scores(out[j], gt[j]))
 #             dice_scores.append(compute_dice_scores(out[j], gt[j]))

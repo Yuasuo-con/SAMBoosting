@@ -24,11 +24,11 @@ parser.add_argument("-img_name_prefix", type=str, default="_0000.nii.gz",
                     help="prefix of the image name, [default: .nii.gz]")
 parser.add_argument("-gt_name_prefix", type=str, default=".nii.gz",
                     help="prefix of the ground truth name, [default: .nii.gz]")
-parser.add_argument("-img_path", type=str, default="data/FLARE22Train/images",
-                    help="Path to the nii images, [default: data/FLARE22Train/images]")
-parser.add_argument("-gt_path", type=str, default="data/FLARE22Train/labels",
-                    help="Path to the ground truth, [default: data/FLARE22Train/labels]")
-parser.add_argument("-output_path", type=str, default="data/npz/Flare22Train",
+parser.add_argument("-img_path", type=str, default=None,
+                    help="Path to the nii images")
+parser.add_argument("-gt_path", type=str, default=None,
+                    help="Path to the ground truth")
+parser.add_argument("-output_path", type=str, default="data/npz",
                     help="Path to save the npy files, [default: ./data/npz]")
 parser.add_argument("-num_workers", type=int, default=4,
                     help="Number of workers, [default: 4]")
