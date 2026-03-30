@@ -216,23 +216,6 @@ python -m torch.distributed.launch \
     --dataset "spine"
 ```
 
-**Key Parameters:**
-
-- `--tr_npy_path`: Path to training npy files (imgs/ and gts/ subfolders required)
-- `--val_npy_path`: Path to validation npy files
-- `--model_cfg`: SAM2 model configuration file
-- `--pretrain_model_path`: Path to pre-trained SAM2 checkpoint
-- `--task_name`: Task name for saving checkpoints
-- `--work_dir`: Working directory to save fine-tuned models
-- `--num_epochs`: Number of epochs for fine-tuning (default: 30)
-- `--batch_size`: Batch size per GPU (default: 8)
-- `--lr`: Learning rate (default: 6e-5)
-- `--weight_decay`: Weight decay (default: 0.01)
-- `--bbox_shift`: Bounding box perturbation range (default: 5)
-- `--labeled_data`: Number of labeled samples to use (spine: 1/2/4/8, skin: 20/50/100/200)
-- `--dataset`: Dataset type (`spine` or `skin`)
-- `--resume`: Path to resume training from checkpoint (optional)
-
 **Notes:**
 
 - The fine-tuning process uses distributed training with multiple GPUs
@@ -288,20 +271,6 @@ python -m torch.distributed.launch \
     --work_dir "work_dir/transUNet_QiluSpine"
 ```
 
-**Key Parameters:**
-- `--model`: Segmentation model type (`UNet`, `transUNet`, `SwinUNet`)
-- `--labeled_ratio`: Ratio of labeled data (e.g., 0.01, 0.05, 0.1)
-- `--batch_size`: Batch size per GPU
-- `--base_lr`: Base learning rate
-- `--max_epochs`: Maximum number of training epochs
-- `--data_path`: Path to preprocessed npy data (output from Step 2)
-- `--pretrain_model_path`: Path to SAM2 checkpoint (or fine-tuned MedSAM2 model)
-- `--model_cfg`: SAM2 model configuration file
-- `--work_dir`: Working directory to save checkpoints and logs
-- `--alpha`: EMA momentum (default: 0.99)
-- `--consistency`: Consistency loss weight (default: 0.1)
-- `--consistency_rampup`: Consistency ramp-up epochs (default: 50)
-
 **Important Notes:**
 - **For TransUNet**: Make sure you have downloaded the ImageNet pretrained weights (`R50+ViT-B_16.npz`) in `vit_checkpoint/imagenet21k/` directory. The model will automatically load these weights during initialization.
 - **For SwinUNet**: Pretrained weights are optional. The model can be trained from scratch.
@@ -333,14 +302,6 @@ python semi_test.py \
     --device "cuda:0" \
     --save_dir "results/QiluSpine_predictions"
 ```
-
-**Parameters:**
-
-- `--model`: Model type used for training
-- `--checkpoint_path`: Path to trained checkpoint
-- `--data_path`: Path to test data in npz format (from Step 1)
-- `--device`: CUDA device (e.g., "cuda:0")
-- `--save_dir`: Directory to save predictions
 
 ### Test on ISIC-2017 Dataset
 

@@ -280,7 +280,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("-pretrain_model_path",
                         type=str,
-                        default="/home/amax/sun/cax/SSMT/checkpoints/sam2_hiera_large.pt",
+                        default="checkpoints/sam2_hiera_large.pt",
     )
     parser.add_argument("-work_dir", type=str, default="./work_dir_without_sam2")
     # train

@@ -16,7 +16,7 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument("-model", type=str, default="transUNet", help="model name")
 parser.add_argument("-checkpoint_path", type=str, default="work_dir_without_sam2/transUNet/50case_labeled_large_trian/_latest_0.01.pth", help="checkpoint path")
-parser.add_argument("-save_dir", type=str, default="/data1/dataset/cax/ISIC-2017/TransUNet_SAMBoosting_50case_labeled")
+parser.add_argument("-save_dir", type=str, default="work_dir/ISIC_predictions", help="Directory to save predictions")
 parser.add_argument("-device", type=str, default="cuda:0")
 args = parser.parse_args()
 
@@ -40,7 +40,7 @@ else:
 checkpoint = torch.load(args.checkpoint_path, map_location='cpu')
 checkpoint = {k.replace('module.', ''): v for k, v in checkpoint.items()}
 model.load_state_dict(checkpoint)
-dataset = ISICDataset(data_root='/data1/dataset/cax/ISIC-2017/test')
+dataset = ISICDataset(data_root='data/ISIC-2017/test')
 dataloader = DataLoader(dataset=dataset, batch_size=24, shuffle=True)
 device = args.device
 save_dir = args.save_dir
@@ -81,7 +81,7 @@ for i, (_, img, gt, _, _) in tqdm(enumerate(dataloader)):
 
             count = count + 1
 
-            # image = cv2.imread('/data1/dataset/cax/ISIC-2017/one_test/image/ISIC_0013457.jpg')       # BGR
+            # image = cv2.imread('data/ISIC-2017/one_test/image/ISIC_0013457.jpg')       # BGR
             # img256 = cv2.resize(image, (256, 256), interpolation=cv2.INTER_AREA)
             # # img: (H, W, 3) uint8   mask: (H, W) 0/255
             # mask_color = np.array([0, 0, 255], dtype=np.uint8)  # 红色

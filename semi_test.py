@@ -139,13 +139,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "-checkpoint_path",
         type=str,
-        default="/root/data/private/cax/SSMT/work_dir/UNet/4case_labeled_large_trian20250401-135551/_latest_0.01.pth",
+        default="work_dir/UNet/_latest.pth",
         help="path to the config file for the model",
     ) 
     parser.add_argument(
         "-data_root",
         type=str,
-        default="/root/data/private/CT-FENGE/npz_test/MR_Abd",
+        default="data/npz_test/MR_Abd",
         help="path to the data root",
     )
     parser.add_argument(
@@ -154,7 +154,7 @@ if __name__ == "__main__":
         default=1,
         help="batch size",
     )
-    parser.add_argument("-pred_save_dir", type=str, default="/root/data/private/cax/SSMT/work_dir", help="Path to save the segmentation results")
+    parser.add_argument("-pred_save_dir", type=str, default="work_dir", help="Path to save the segmentation results")
     parser.add_argument("--visualize", action="store_true", default=False, help="Save the .nii.gz segmentation results")
     parser.add_argument("--model", type=str, default="UNet", help="the model need to test")
     agrs = parser.parse_args()

@@ -10,10 +10,10 @@ from functools import partial
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-img_dir",type=str,default="/data1/dataset/cax/data/CT-FENGE/original_data")
-parser.add_argument("-label_dir",type=str,default="/data1/dataset/cax/data/CT-FENGE/3classes_mask")
-parser.add_argument("-train_data_dir",type=str,default="/data1/dataset/cax/data/CT-FENGE/train")
-parser.add_argument("-test_data_dir",type=str,default="/data1/dataset/cax/data/CT-FENGE/test")
+parser.add_argument("-img_dir",type=str,default="data/CT-FENGE/original_data")
+parser.add_argument("-label_dir",type=str,default="data/CT-FENGE/3classes_mask")
+parser.add_argument("-train_data_dir",type=str,default="data/CT-FENGE/train")
+parser.add_argument("-test_data_dir",type=str,default="data/CT-FENGE/test")
 args = parser.parse_args()
 
 if os.path.exists(args.train_data_dir):
